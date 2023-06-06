@@ -123,6 +123,17 @@ function MoviePage() {
               );
             })}
           </h3>
+          <div>
+            {/* <iframe
+              width="560"
+              height="315"
+              src="https://www.youtube.com/embed/eoOaKN4qCKw"
+              title="YouTube video player"
+              frameborder="0"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+              allowfullscreen
+            ></iframe> */}
+          </div>
           <h3>
             About:
             <br />
@@ -156,7 +167,9 @@ function MoviePage() {
               return (
                 <div key={index + 1}>
                   <h3>{item.title}</h3>
-                  <img src={`https://image.tmdb.org/t/p/w185/${item.poster_path}`}/>
+                  <img
+                    src={`https://image.tmdb.org/t/p/w185/${item.poster_path}`}
+                  />
                 </div>
               );
             })}
