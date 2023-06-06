@@ -1,7 +1,7 @@
 import React from "react";
 import { useState, useEffect } from "react";
 import axios from "axios";
-
+import { Link } from "react-router-dom";
 function Home() {
   const [movielist, setMovielist] = useState([]);
   const [err, setErr] = useState(null);
@@ -15,16 +15,14 @@ function Home() {
           {
             headers: {
               accept: "application/json",
-              Authorization: "Bearer b07d37045fff43fdd7b6e6dbca697741",
+              Authorization:
+                "Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJiMDdkMzcwNDVmZmY0M2ZkZDdiNmU2ZGJjYTY5Nzc0MSIsInN1YiI6IjYyYzViOGI4ZTg2MDE3MDBkMmU1YjhkMCIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.STosxagdr6iiV_JiUuqY9IVf57n1I2C4yhfqz8iXfjU",
             },
           }
         );
-        console.log(data.data.results);
         setMovielist(data.data.results);
         setLoading(false);
-        // console.log(data.data);
       } catch (error) {
-        // console.log(error.message);
         setErr(error.message);
       }
     };
@@ -39,11 +37,17 @@ function Home() {
       ) : loading == true ? (
         <h3>Loading</h3>
       ) : (
-        movielist.map((item) => {
+        movielist.map((item, index) => {
           return (
-            <div>
-              <img src={`https://image.tmdb.org/t/p/w185/${item.poster_path}`} />
-              <h3>{item.title}</h3>
+            <div key={index + 1}>
+              <div>
+                <img
+                  src={`https://image.tmdb.org/t/p/w185/${item.poster_path}`}
+                />
+              </div>
+              <div>
+                <Link to={`/movie/${item.id}`}>{item.title}</Link>
+              </div>
             </div>
           );
         })
