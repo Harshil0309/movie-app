@@ -21,15 +21,16 @@ function Home() {
           }
         );
         setMovielist(data.data.results);
-        setLoading(false);
       } catch (error) {
         setErr(error.message);
       }
+      setLoading(false);
     };
     fetchlist();
   }, []);
 
   const [searchdetails, setSearchDetails] = useState([]);
+
   const [inputValue, setInputValue] = useState("");
   function HandleSearch() {
     const fetchsearch = async () => {
@@ -64,6 +65,8 @@ function Home() {
       <button onClick={HandleSearch}>Search</button>
       <br />
       <br />
+
+      <Link to={"/genres"}>Click for genres list</Link>
 
       {err != null ? (
         <h4>{err}</h4>
