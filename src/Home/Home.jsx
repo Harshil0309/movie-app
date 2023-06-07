@@ -29,10 +29,41 @@ function Home() {
     fetchlist();
   }, []);
 
+  const [searchdetails, setSearchDetails] = useState([]);
+  const [inputValue, setInputValue] = useState("");
+  function HandleSearch() {
+    const fetchsearch = async () => {
+      try {
+        const data = await axios(
+          `https://api.themoviedb.org/3/search/movie?query=${inputValue}&include_adult=false&language=en-US&page=1`,
+          {
+            headers: {
+              accept: "application/json",
+              Authorization:
+                "Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJiMDdkMzcwNDVmZmY0M2ZkZDdiNmU2ZGJjYTY5Nzc0MSIsInN1YiI6IjYyYzViOGI4ZTg2MDE3MDBkMmU1YjhkMCIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.STosxagdr6iiV_JiUuqY9IVf57n1I2C4yhfqz8iXfjU",
+            },
+          }
+        );
+        setMovielist(data.data.results);
+      } catch (error) {
+        setErr(error.message);
+      }
+    };
+    fetchsearch();
+  }
+
+  function HandleChange(event) {
+    setInputValue(event.target.value);
+  }
+
   return (
     <div>
       <h3>Home</h3>
-      
+
+      <input value={inputValue} onChange={HandleChange} />
+      <button onClick={HandleSearch}>Search</button>
+      <br />
+      <br />
 
       {err != null ? (
         <h4>{err}</h4>
